@@ -9,7 +9,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: '🎉 GadgetHub API is running!',
+    status: 'active',
+    endpoints: {
+      users: '/api/user',
+      products: '/api/products',
+      orders: '/api/orders',
+      admin: '/api/admin'
+    },
+    version: '1.0.0'
+  });
+});
+
+// API Routes
 try {
   const userRoutes = require('./routers/signuprouters');
   const productRoutes = require('./routers/productRoutes');
