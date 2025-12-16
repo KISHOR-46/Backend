@@ -1,0 +1,83 @@
+========================================
+MONGODB ATLAS SETUP - STEP BY STEP
+========================================
+
+STEP 1: Create MongoDB Atlas Account
+-------------------------------------
+1. Go to: https://www.mongodb.com/cloud/atlas/register
+2. Sign up with your email or Google account
+3. Verify your email
+
+STEP 2: Create a Free Cluster
+------------------------------
+1. After login, click "Build a Database"
+2. Choose "M0 FREE" tier
+3. Select Cloud Provider: AWS (recommended)
+4. Select Region: Choose closest to you
+5. Cluster Name: Keep default or name it "Cluster0"
+6. Click "Create Cluster" (takes 3-5 minutes)
+
+STEP 3: Create Database User
+-----------------------------
+1. Click "Database Access" in left sidebar
+2. Click "+ ADD NEW DATABASE USER"
+3. Authentication Method: Password
+4. Username: Enter a username (e.g., "gadgetuser")
+5. Password: Click "Autogenerate Secure Password" and COPY IT!
+   OR create your own password
+6. Database User Privileges: Select "Read and write to any database"
+7. Click "Add User"
+
+IMPORTANT: Save your username and password somewhere safe!
+
+STEP 4: Whitelist Your IP Address
+----------------------------------
+1. Click "Network Access" in left sidebar
+2. Click "+ ADD IP ADDRESS"
+3. Click "ALLOW ACCESS FROM ANYWHERE" (for development)
+   This adds 0.0.0.0/0
+4. Click "Confirm"
+
+STEP 5: Get Your Connection String
+-----------------------------------
+1. Click "Database" in left sidebar
+2. Click "Connect" button on your cluster
+3. Choose "Connect your application"
+4. Driver: Node.js
+5. Version: 5.5 or later
+6. Copy the connection string (looks like this):
+   mongodb+srv://gadgetuser:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+
+STEP 6: Update .env File
+-------------------------
+1. Open: Backend/.env
+2. Replace MONGO_URL with your connection string
+3. Replace <password> with your actual password
+4. Add database name after .net/ (e.g., gadgetstore)
+
+Example:
+MONGO_URL=mongodb+srv://gadgetuser:MyPass123@cluster0.abc123.mongodb.net/gadgetstore?retryWrites=true&w=majority
+PORT=5000
+
+STEP 7: Test Connection
+------------------------
+Run this command in Backend folder:
+node test-connection.js
+
+You should see:
+✅ MongoDB connected successfully!
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Error: "Authentication failed"
+→ Check username and password in connection string
+
+Error: "Network timeout"
+→ Check if IP is whitelisted (0.0.0.0/0)
+
+Error: "Cannot connect"
+→ Wait 3-5 minutes for cluster to finish creating
+
+========================================
